@@ -11,42 +11,44 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center px-4">
-            <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-2xl flex flex-col items-center">
-                
-                {/* Logo */}
-                <img 
-                    src="/TecNM-logort.png"
-                    alt="Logo"
-                    className="h-24 w-auto object-contain hover:scale-105 transition-transform duration-200 shadow-lg rounded-lg mb-6"
-                />
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-300 via-blue-500 to-purple-600">
+            <div className="w-full max-w-md bg-white p-10 rounded-3xl shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                {/* Imagen */}
+                <div className="flex justify-center mb-6">
+                    <img 
+                        src="/TecNM-logort.png"
+                        alt="Logo"
+                        style={{ width: '80px', height: '80px' }}
+                        className="object-contain hover:rotate-6 transition-transform duration-300 shadow-lg rounded-full"
+                    />
+                </div>
 
                 {/* Título */}
-                <h2 className="text-2xl font-bold text-center text-gray-700 mb-6">
-                    Iniciar Sesión
+                <h2 className="text-4xl font-extrabold text-center text-gray-800 mb-8">
+                    ¡Bienvenido de Nuevo!
                 </h2>
 
                 {/* Formulario */}
-                <form onSubmit={handleSubmit} className="space-y-5 w-full flex flex-col items-center">
+                <form onSubmit={handleSubmit} className="space-y-6">
                     {/* Email */}
-                    <div className="w-full">
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-600 mb-1">
-                            Usuario (Email)
+                    <div>
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2 transition-colors duration-300 hover:text-blue-600">
+                            Correo Electrónico
                         </label>
                         <input
                             type="email"
                             id="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="ejemplo@escuela.com"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-500 transition-shadow duration-300 hover:shadow-lg"
+                            placeholder="ejemplo@correo.com"
                             required
                         />
                     </div>
 
                     {/* Contraseña */}
-                    <div className="w-full">
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-600 mb-1">
+                    <div>
+                        <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2 transition-colors duration-300 hover:text-blue-600">
                             Contraseña
                         </label>
                         <input
@@ -54,7 +56,7 @@ const Login = () => {
                             id="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-500 transition-shadow duration-300 hover:shadow-lg"
                             placeholder="••••••••"
                             required
                         />
@@ -63,16 +65,16 @@ const Login = () => {
                     {/* Botón */}
                     <button
                         type="submit"
-                        className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200 font-semibold"
+                        className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 rounded-lg hover:from-blue-600 hover:to-purple-700 transition duration-300 font-bold shadow-md hover:shadow-lg"
                     >
-                        Entrar
+                        Iniciar Sesión
                     </button>
                 </form>
 
                 {/* Enlace */}
                 <p className="mt-6 text-center text-sm text-gray-600">
-                    ¿No tienes cuenta?{" "}
-                    <a href="#" className="text-blue-600 hover:underline font-medium">
+                    ¿No tienes cuenta?{' '}
+                    <a href="/register" className="text-blue-700 hover:underline font-medium transition-colors duration-300 hover:text-purple-600">
                         Regístrate aquí
                     </a>
                 </p>
