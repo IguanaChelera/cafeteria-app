@@ -152,7 +152,7 @@ const Register = () => {
                 {/* Enlace */}
                 <p className="mt-6 text-center text-sm text-gray-600">
                     ¿Ya tienes cuenta?{' '}
-                    <a href="/login" className="text-blue-700 hover:underline font-medium transition-colors duration-300 hover:text-purple-600">
+                    <a href="/" className="text-blue-700 hover:underline font-medium transition-colors duration-300 hover:text-purple-600">
                         Inicia Sesión
                     </a>
                 </p>
