@@ -1,10 +1,11 @@
 import { useState } from "react";
+import React from "react"; // Import necesario para los tipos de React
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => { // Especificar el tipo de 'e'
         e.preventDefault();
         console.log("Email:", email, "Password:", password);
         // Aquí iría la lógica para autenticar
