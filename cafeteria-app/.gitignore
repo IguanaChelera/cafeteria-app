@@ -22,3 +22,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+"cafeteria-app/backend/*.json" 

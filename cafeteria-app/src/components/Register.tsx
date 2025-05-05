@@ -1,19 +1,26 @@
 import { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
+// Import the functions you need from the SDKs you need
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Configuración de Firebase
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyCeePYOD6E1bl8dHslfj4B4YzPqbgDzQeo",
+  authDomain: "cafeteria-app-85c15.firebaseapp.com",
+  projectId: "cafeteria-app-85c15",
+  storageBucket: "cafeteria-app-85c15.firebasestorage.app",
+  messagingSenderId: "791444604779",
+  appId: "1:791444604779:web:dcf06b2cda2faa5217ae2e",
+  measurementId: "G-YGFD7S7MQM"
 };
 
-// Inicializar Firebase
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 const auth = getAuth(app);
 
 const Register = () => {
@@ -47,6 +54,7 @@ const Register = () => {
             await createUserWithEmailAndPassword(auth, formData.email, formData.password);
             setSuccess("Usuario registrado exitosamente");
         } catch (err) {
+            console.error("Error al registrar el usuario:", err); // Agregar log para depuración
             const errorMessage = (err as { message: string }).message || "Error desconocido";
             setError("Error al registrar el usuario: " + errorMessage);
         }
@@ -161,4 +169,4 @@ const Register = () => {
     );
 };
 
-export default Register;
+export default Register; // Asegurarse de que el componente Register esté exportado como default
