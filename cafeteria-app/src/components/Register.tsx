@@ -1,27 +1,5 @@
 import { useState } from "react";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { initializeApp } from "firebase/app";
-// Import the functions you need from the SDKs you need
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyCeePYOD6E1bl8dHslfj4B4YzPqbgDzQeo",
-  authDomain: "cafeteria-app-85c15.firebaseapp.com",
-  projectId: "cafeteria-app-85c15",
-  storageBucket: "cafeteria-app-85c15.firebasestorage.app",
-  messagingSenderId: "791444604779",
-  appId: "1:791444604779:web:dcf06b2cda2faa5217ae2e",
-  measurementId: "G-YGFD7S7MQM"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app);
+import axios from "axios";
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -51,12 +29,14 @@ const Register = () => {
         }
 
         try {
-            await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+            const response = await axios.post("http://localhost:4000/register", {
+                name: formData.fullName,
+                email: formData.email,
+                password: formData.password,
+            });
             setSuccess("Usuario registrado exitosamente");
-        } catch (err) {
-            console.error("Error al registrar el usuario:", err); // Agregar log para depuración
-            const errorMessage = (err as { message: string }).message || "Error desconocido";
-            setError("Error al registrar el usuario: " + errorMessage);
+        } catch (err: any) {
+            setError(err.response?.data?.error || "Error al registrar el usuario");
         }
     };
 
@@ -169,4 +149,4 @@ const Register = () => {
     );
 };
 
-export default Register; // Asegurarse de que el componente Register esté exportado como default
+export default Register;

@@ -4,10 +4,6 @@ import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import admin from 'firebase-admin';
-import fs from 'fs';
-
-const serviceAccount = JSON.parse(fs.readFileSync('./cafeteria-app-85c15-firebase-adminsdk-fbsvc-41e99c8852.json', 'utf8')); // Leer el archivo JSON manualmente
 
 dotenv.config();
 
@@ -15,11 +11,6 @@ const app = express();
 const prisma = new PrismaClient();
 const PORT = 4000;
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
-
-// Inicializar Firebase Admin SDK
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
 
 app.use(cors());
 app.use(express.json());
@@ -59,19 +50,23 @@ app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Buscar usuario en Firebase Authentication
-    const userRecord = await admin.auth().getUserByEmail(email);
+    const user = await prisma.user.findUnique({ where: { email } });
 
-    if (!userRecord) {
+    if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    // Aquí puedes agregar lógica adicional para verificar la contraseña si es necesario
-    res.status(200).json({ message: 'Login successful', user: userRecord });
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+
+    const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, {
+      expiresIn: '1h',
+    });
+
+    res.status(200).json({ message: 'Login successful', token });
   } catch (error) {
-    if (error.code === 'auth/user-not-found') {
-      return res.status(404).json({ error: 'User not found' });
-    }
     res.status(500).json({ error: 'Internal server error' });
   }
 });
