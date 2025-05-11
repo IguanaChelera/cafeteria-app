@@ -7,4 +7,5 @@ export interface Producto {
   description: string;
   image: string;
   price: number;
+  uniqueId?: number; // Agrego la propiedad optional 'uniqueId'
 }

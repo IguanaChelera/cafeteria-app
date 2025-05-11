@@ -11,7 +11,7 @@ const App: React.FC = () => {
   const [cartItems, setCartItems] = useState<Producto[]>([]);
 
   const agregarAlCarrito = (producto: Producto) => {
-    setCartItems((prevItems) => [...prevItems, producto]);
+    setCartItems((prevItems) => [...prevItems, { ...producto, uniqueId: Date.now() }]);
   };
 
   return (

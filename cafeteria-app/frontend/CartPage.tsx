@@ -22,8 +22,9 @@ const CartPage: React.FC<CartPageProps> = ({ cartItems, setCartItems }) => {
     calculateTotal();
   }, [cartItems]);
 
-  const handleRemoveItem = (id: number) => {
-    const updatedCart = cartItems.filter((item) => item.id !== id);
+  const handleRemoveItem = (uniqueId: number | undefined) => {
+    if (!uniqueId) return; // Verifica que el uniqueId exista
+    const updatedCart = cartItems.filter((item) => item.uniqueId !== uniqueId);
     setCartItems(updatedCart);
   };
 
@@ -77,7 +78,7 @@ const CartPage: React.FC<CartPageProps> = ({ cartItems, setCartItems }) => {
               </div>
             </div>
             <button
-              onClick={() => handleRemoveItem(item.id)}
+              onClick={() => handleRemoveItem(item.uniqueId)}
               className="text-red-500 hover:text-red-700"
             >
               <FaTrash size={20} />
