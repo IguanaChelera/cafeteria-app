@@ -14,3 +14,19 @@ model User {
   password  String
   createdAt DateTime @default(now())
 }
+
+model Sale {
+  id        String     @id @default(uuid())
+  total     Float
+  createdAt DateTime   @default(now())
+  items     SaleItem[]
+}
+
+model SaleItem {
+  id        String   @id @default(uuid())
+  name      String
+  price     Float
+  quantity  Int
+  saleId    String
+  sale      Sale     @relation(fields: [saleId], references: [id])
+}

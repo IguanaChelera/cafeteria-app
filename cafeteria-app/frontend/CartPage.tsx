@@ -35,9 +35,9 @@ const CartPage: React.FC<CartPageProps> = ({ cartItems, setCartItems }) => {
   const handlePurchase = async () => {
     try {
       const purchaseData = cartItems.map((item) => ({
-        id: item.id,
         name: item.name,
         price: item.price,
+        quantity: item.quantity, // Aseguro que se envíe la cantidad correctamente
       }));
 
       await axios.post('http://localhost:4000/sales', {

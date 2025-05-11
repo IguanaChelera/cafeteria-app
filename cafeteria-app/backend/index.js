@@ -83,6 +83,7 @@ app.post('/sales', async (req, res) => {
           create: items.map((item) => ({
             name: item.name,
             price: item.price,
+            quantity: item.quantity,
           })),
         },
       },
