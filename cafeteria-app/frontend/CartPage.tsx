@@ -37,7 +37,7 @@ const CartPage: React.FC<CartPageProps> = ({ cartItems, setCartItems }) => {
       const purchaseData = cartItems.map((item) => ({
         name: item.name,
         price: item.price,
-        quantity: item.quantity, // Aseguro que se envíe la cantidad correctamente
+        quantity: item.quantity,
       }));
 
       await axios.post('http://localhost:4000/sales', {
@@ -45,7 +45,7 @@ const CartPage: React.FC<CartPageProps> = ({ cartItems, setCartItems }) => {
         total,
       });
 
-      setCartItems([]); // Vaciar el carrito después de la compra
+      setCartItems([]);
       setTotal(0);
       alert('Compra realizada con éxito');
     } catch (error) {
@@ -55,28 +55,25 @@ const CartPage: React.FC<CartPageProps> = ({ cartItems, setCartItems }) => {
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Carrito de compras</h1>
+    <div className="cart-container">
+      <h1 className="cart-title">Carrito de compras</h1>
 
-      <div className="space-y-4">
+      <div>
         {cartItems.map((item) => (
-          <div
-            key={`${item.id}-${item.uniqueId}`}
-            className="flex items-center justify-between p-4 bg-white shadow rounded-lg"
-          >
+          <div key={`${item.id}-${item.uniqueId}`} className="cart-item">
             <div className="flex items-center">
               {item.image && (
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="w-16 h-16 rounded mr-4"
+                  className="cart-item-image"
                 />
               )}
-              <div>
-                <h2 className="text-lg font-semibold">{item.name}</h2>
-                <p className="text-gray-600">Cantidad: {item.quantity}</p>
-                <p className="text-gray-600">Precio: ${item.price.toFixed(2)}</p>
-                <p className="text-gray-600">
+              <div className="cart-item-details">
+                <h2 className="cart-item-name">{item.name}</h2>
+                <p className="cart-item-info">Cantidad: {item.quantity}</p>
+                <p className="cart-item-info">Precio: ${item.price.toFixed(2)}</p>
+                <p className="cart-item-info">
                   Subtotal: ${(item.price * item.quantity).toFixed(2)}
                 </p>
               </div>
@@ -91,26 +88,24 @@ const CartPage: React.FC<CartPageProps> = ({ cartItems, setCartItems }) => {
         ))}
       </div>
 
-      <div className="mt-6">
-        <h2 className="text-xl font-bold">Total: ${total.toFixed(2)}</h2>
-      </div>
+      <div className="cart-total">Total: ${total.toFixed(2)}</div>
 
-      <div className="mt-6 flex justify-between">
+      <div className="cart-actions">
         <button
           onClick={handleGoToMenu}
-          className="flex items-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          className="cart-button cart-button-back"
         >
           <FaUtensils className="mr-2" /> Regresar al menú
         </button>
         <button
           onClick={() => setCartItems([])}
-          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+          className="cart-button cart-button-clear"
         >
           Vaciar carrito
         </button>
         <button
           onClick={handlePurchase}
-          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+          className="cart-button cart-button-purchase"
         >
           Comprar
         </button>
