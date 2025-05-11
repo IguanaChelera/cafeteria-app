@@ -61,7 +61,7 @@ const CartPage: React.FC<CartPageProps> = ({ cartItems, setCartItems }) => {
       <div className="space-y-4">
         {cartItems.map((item) => (
           <div
-            key={item.id}
+            key={item.uniqueId}
             className="flex items-center justify-between p-4 bg-white shadow rounded-lg"
           >
             <div className="flex items-center">
