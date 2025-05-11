@@ -7,5 +7,6 @@ export interface Producto {
   description: string;
   image: string;
   price: number;
-  uniqueId?: number; // Agrego la propiedad optional 'uniqueId'
+  uniqueId?: number; // Identificador único opcional
+  quantity: number; // Nueva propiedad para la cantidad
 }

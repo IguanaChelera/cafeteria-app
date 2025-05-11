@@ -10,6 +10,7 @@ const productos: Producto[] = [
     description: 'Tacos deliciosos con carne y salsa',
     image: '/images/tacos.png',
     price: 10.0,
+    quantity: 0, // Agrego la propiedad quantity con valor inicial
   },
   {
     id: 2,
@@ -17,6 +18,7 @@ const productos: Producto[] = [
     description: 'Burritos rellenos de frijoles y queso',
     image: '/images/burritos.png',
     price: 12.0,
+    quantity: 0, // Agrego la propiedad quantity con valor inicial
   },
   {
     id: 3,
@@ -24,6 +26,7 @@ const productos: Producto[] = [
     description: 'Enchiladas bañadas en salsa roja',
     image: '/images/enchiladas.png',
     price: 15.0,
+    quantity: 0, // Agrego la propiedad quantity con valor inicial
   },
 ];
 

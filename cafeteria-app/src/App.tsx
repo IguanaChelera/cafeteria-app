@@ -11,7 +11,16 @@ const App: React.FC = () => {
   const [cartItems, setCartItems] = useState<Producto[]>([]);
 
   const agregarAlCarrito = (producto: Producto) => {
-    setCartItems((prevItems) => [...prevItems, { ...producto, uniqueId: Date.now() }]);
+    setCartItems((prevItems) => {
+      const existingProduct = prevItems.find((item) => item.id === producto.id);
+      if (existingProduct) {
+        return prevItems.map((item) =>
+          item.id === producto.id ? { ...item, quantity: item.quantity + 1 } : item
+        );
+      } else {
+        return [...prevItems, { ...producto, uniqueId: Date.now(), quantity: 1 }];
+      }
+    });
   };
 
   return (

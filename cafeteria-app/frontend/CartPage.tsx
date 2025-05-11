@@ -15,7 +15,7 @@ const CartPage: React.FC<CartPageProps> = ({ cartItems, setCartItems }) => {
 
   useEffect(() => {
     const calculateTotal = () => {
-      const totalAmount = cartItems.reduce((sum, item) => sum + item.price, 0);
+      const totalAmount = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
       setTotal(totalAmount);
     };
 
@@ -23,7 +23,7 @@ const CartPage: React.FC<CartPageProps> = ({ cartItems, setCartItems }) => {
   }, [cartItems]);
 
   const handleRemoveItem = (uniqueId: number | undefined) => {
-    if (!uniqueId) return; // Verifica que el uniqueId exista
+    if (!uniqueId) return;
     const updatedCart = cartItems.filter((item) => item.uniqueId !== uniqueId);
     setCartItems(updatedCart);
   };
@@ -61,7 +61,7 @@ const CartPage: React.FC<CartPageProps> = ({ cartItems, setCartItems }) => {
       <div className="space-y-4">
         {cartItems.map((item) => (
           <div
-            key={item.uniqueId}
+            key={`${item.id}-${item.uniqueId}`}
             className="flex items-center justify-between p-4 bg-white shadow rounded-lg"
           >
             <div className="flex items-center">
@@ -74,7 +74,11 @@ const CartPage: React.FC<CartPageProps> = ({ cartItems, setCartItems }) => {
               )}
               <div>
                 <h2 className="text-lg font-semibold">{item.name}</h2>
-                <p className="text-gray-600">${item.price.toFixed(2)}</p>
+                <p className="text-gray-600">Cantidad: {item.quantity}</p>
+                <p className="text-gray-600">Precio: ${item.price.toFixed(2)}</p>
+                <p className="text-gray-600">
+                  Subtotal: ${(item.price * item.quantity).toFixed(2)}
+                </p>
               </div>
             </div>
             <button
