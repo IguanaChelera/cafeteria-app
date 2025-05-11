@@ -1,56 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaArrowLeft, FaShoppingCart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-
-interface Producto {
-  id: number;
-  nombre: string;
-  descripcion: string;
-  imagen: string;
-  precio: string;
-}
+import { Producto } from '../src/types';
 
 const productos: Producto[] = [
   {
     id: 1,
-    nombre: "Tacos",
-    descripcion: "Tacos deliciosos con carne y salsa",
-    imagen: "/images/tacos.png",
-    precio: "$10.00",
+    name: 'Tacos',
+    description: 'Tacos deliciosos con carne y salsa',
+    image: '/images/tacos.png',
+    price: 10.0,
   },
   {
     id: 2,
-    nombre: "Burritos",
-    descripcion: "Burritos rellenos de frijoles y queso",
-    imagen: "/images/burritos.png",
-    precio: "$12.00",
+    name: 'Burritos',
+    description: 'Burritos rellenos de frijoles y queso',
+    image: '/images/burritos.png',
+    price: 12.0,
   },
   {
     id: 3,
-    nombre: "Enchiladas",
-    descripcion: "Enchiladas bañadas en salsa roja",
-    imagen: "/images/enchiladas.png",
-    precio: "$15.00",
+    name: 'Enchiladas',
+    description: 'Enchiladas bañadas en salsa roja',
+    image: '/images/enchiladas.png',
+    price: 15.0,
   },
 ];
 
-const ProductoCard: React.FC<{ producto: Producto; agregarAlCarrito: (producto: Producto) => void }> = ({ producto, agregarAlCarrito }) => {
-  return (
-    <div style={styles.card}>
-      <img src={producto.imagen} alt={producto.nombre} style={styles.imagen} />
-      <div style={styles.info}>
-        <h3>{producto.nombre}</h3>
-        <p>{producto.descripcion}</p>
-        <p style={styles.precio}>{producto.precio}</p>
-      </div>
-      <button style={styles.botonAgregar} onClick={() => agregarAlCarrito(producto)}>
-        Agregar
-      </button>
-    </div>
-  );
-};
-
-const MenuPage: React.FC = () => {
+const MenuPage: React.FC<{ agregarAlCarrito: (producto: Producto) => void }> = ({ agregarAlCarrito }) => {
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -61,10 +38,6 @@ const MenuPage: React.FC = () => {
     navigate('/cart');
   };
 
-  const agregarAlCarrito = (producto: Producto) => {
-    console.log("Producto agregado:", producto);
-  };
-
   return (
     <div style={styles.contenedor}>
       <header style={styles.encabezado}>
@@ -73,11 +46,20 @@ const MenuPage: React.FC = () => {
       </header>
       <div style={styles.listaProductos}>
         {productos.map((producto) => (
-          <ProductoCard
-            key={producto.id}
-            producto={producto}
-            agregarAlCarrito={agregarAlCarrito}
-          />
+          <div key={producto.id} style={styles.card}>
+            <img src={producto.image} alt={producto.name} style={styles.imagen} />
+            <div style={styles.info}>
+              <h3>{producto.name}</h3>
+              <p>{producto.description}</p>
+              <p style={styles.precio}>${producto.price.toFixed(2)}</p>
+            </div>
+            <button
+              style={styles.botonAgregar}
+              onClick={() => agregarAlCarrito(producto)}
+            >
+              Agregar
+            </button>
+          </div>
         ))}
       </div>
       <button style={styles.botonCarrito} onClick={handleGoToCart}>

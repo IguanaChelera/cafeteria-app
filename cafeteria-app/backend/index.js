@@ -71,6 +71,30 @@ app.post('/login', async (req, res) => {
   }
 });
 
+// Endpoint para guardar una venta completa
+app.post('/sales', async (req, res) => {
+  const { items, total } = req.body; // Array de productos y total
+
+  try {
+    const sale = await prisma.sale.create({
+      data: {
+        total,
+        items: {
+          create: items.map((item) => ({
+            name: item.name,
+            price: item.price,
+          })),
+        },
+      },
+    });
+
+    res.status(201).json(sale);
+  } catch (error) {
+    console.error('Error saving sale:', error);
+    res.status(500).json({ error: 'Error saving sale' });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
