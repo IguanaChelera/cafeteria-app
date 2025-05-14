@@ -97,18 +97,22 @@ const CartPage: React.FC<CartPageProps> = ({ cartItems, setCartItems }) => {
         >
           <FaUtensils className="mr-2" /> Regresar al menú
         </button>
-        <button
-          onClick={() => setCartItems([])}
-          className="cart-button cart-button-clear"
-        >
-          Vaciar carrito
-        </button>
-        <button
-          onClick={handlePurchase}
-          className="cart-button cart-button-purchase"
-        >
-          Comprar
-        </button>
+        {cartItems.length > 0 && (
+          <>
+            <button
+              onClick={() => setCartItems([])}
+              className="cart-button cart-button-clear"
+            >
+              Vaciar carrito
+            </button>
+            <button
+              onClick={handlePurchase}
+              className="cart-button cart-button-purchase"
+            >
+              Comprar
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

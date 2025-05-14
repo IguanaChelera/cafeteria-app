@@ -1,12 +1,22 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUtensils, faShoppingCart, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faUtensils, faShoppingCart, faPhone } from '@fortawesome/free-solid-svg-icons';
 
 const Home = () => {
+    const navigate = useNavigate();
+
     return (
-        <div className="min-h-screen flex flex-col items-center justify-between bg-white p-6">
+        <div className="min-h-screen flex flex-col items-center justify-between bg-white p-6 relative">
+            {/* Botón flotante centrado abajo para regresar al login */}
+            <button
+                className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-blue-500 text-white px-6 py-3 rounded-full flex items-center gap-2 shadow-lg hover:bg-blue-600 transition z-50"
+                onClick={() => navigate('/')}
+            >
+                <FontAwesomeIcon icon={faArrowLeft} />
+                Volver
+            </button>
             {/* Header */}
-            <header className="text-center">
+            <header className="text-center w-full relative">
                 <h1 className="text-3xl font-bold text-gray-800 mb-4">TecFood</h1>
                 <img 
                     src="/TecNM-logort.png" 
